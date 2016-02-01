@@ -74,13 +74,27 @@ module.exports.connections = {
   *                                                                          *
   *                                                                          *
   ***************************************************************************/
-  somePostgresqlServer: {
+  /*somePostgresqlServer: {
     adapter: 'sails-postgresql',
     host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  }
+  }*/
+  
+	postgresql: {
+		//adapter : 'sails-postgresql',
+		user: 'postgres',
+		//password: '',
+		database: 'sails-sequelize-sample',
+		dialect: 'postgres',
+		options: {
+			dialect: 'postgres',
+			host   : 'localhost',
+			port   : 5432,
+			logging: console.log
+		}
+	}
 
 
   /***************************************************************************
