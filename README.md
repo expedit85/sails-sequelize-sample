@@ -24,7 +24,7 @@ A Sails application sample configured for using Sequelize (ORM) with Postgresql,
     npm run build-doc
     npm run build-doc-md
 
-Then, browse [doc/index.html](doc/index.html) (local only) or open [apidoc.md](apidoc.md) in some markdown viewer.
+Then, browse [doc/index.html](doc/index.html) (local only link) or open [apidoc.md](apidoc.md) in some markdown viewer like github.
 
 
 ### Running
@@ -43,10 +43,10 @@ All the services in the [UserController](api/controllers/UserController.js), are
 
 The table below shows the endpoints which works for browser's address bar:
 
-| Service                     | Endpoint                                     |
+| Service                     | Endpoint (works only after running locally)  |
 |-----------------------------|----------------------------------------------|
-| List all users              | [http://localhost:1337/user/list](localhost:1337/user/list) |
-| Show some specific user     | [http://localhost:1337/user/show?id=1](localhost:1337/user/show?id=1) |
+| List all users              | [http://localhost:1337/user/list](http://localhost:1337/user/list) |
+| Show some specific user     | [http://localhost:1337/user/show?id=1](http://localhost:1337/user/show?id=1) |
 | Create a new user           | [http://localhost:1337/user/create?name=Bob](http://localhost:1337/user/create?name=Bob) |
 | Test INSERT/SELECT of dates | [http://localhost:1337/user/test](http://localhost:1337/user/test) |
 | Test transaction usage      | [http://localhost:1337/user/transaction?id=90](http://localhost:1337/user/transaction?id=90) |
