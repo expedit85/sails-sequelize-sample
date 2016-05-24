@@ -1,9 +1,12 @@
 /*
- create table public.user (
-   id serial not null,
-   name varchar(40) not null,
-   address varchar(100) null,
-   primary key(id));
+CREATE TABLE "user" (
+    id integer NOT NULL,
+    name character varying(40) NOT NULL,
+    address character varying(100),
+    birthday_date timestamp with time zone,
+    begin_date timestamp with time zone,
+    end_date timestamp with time zone
+);
 */
 
 

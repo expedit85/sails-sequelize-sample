@@ -1,8 +1,8 @@
 {
-  "name": "sails-sequelize",
+  "name": "sails-sequelize-sample",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
+  "description": "A Sails application sample using Sequelize ORM, generators, APIdocs and Mocha.",
   "keywords": [],
   "dependencies": {
     "co": "^4.6.0",
@@ -20,6 +20,7 @@
     "grunt-sails-linker": "~0.9.5",
     "grunt-sync": "~0.0.4",
     "include-all": "~0.1.3",
+    "lodash": "^4.13.1",
     "pg": "^4.4.4",
     "rc": "~0.5.0",
     "sails": "~0.11.4",
@@ -28,13 +29,43 @@
   },
   "scripts": {
     "debug": "node debug app.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "build-doc": "node ./node_modules/apidoc/bin/apidoc  -i ./api/controllers/  -o doc/",
+    "build-doc-md": "node ./node_modules/apidoc-markdown/index.js  -p doc/ -o apidoc.md",
+    "test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/unit/*.test.js test/integration/**/*.test.js",
+    "unit-test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/unit/*.test.js",
+    "integration-test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js test/integration/**/*.test.js",
+    "single-test": "node ./node_modules/mocha/bin/mocha test/bootstrap.test.js "
   },
   "main": "app.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/expedit/sails-sequelize.git"
   },
-  "author": "expedit",
-  "license": ""
+  "author": "Technia TI",
+  "license": "MIT",
+  "devDependencies": {
+    "apidoc": "^0.16.1",
+    "apidoc-markdown": "^0.2.0",
+    "co-supertest": "0.0.10",
+    "expect.js": "^0.3.1",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1",
+    "supertest": "^1.2.0"
+  },
+  "apidoc": {
+    "name": "Sample of API documentation",
+    "version": "0.0.0",
+    "title": "Sample API",
+    "_url": "http://...",
+    "_sampleUrl": "http://...",
+    "header": {
+      "filename": "doc-header.md"
+    },
+    "_order": [
+      "Login",
+      "User",
+      "List"
+    ]
+  }
 }
