@@ -7,6 +7,26 @@
 
 var co = require('co');
 
+var Valichain = require('valichain');
+var V = Valichain.validate;
+var VE = Valichain.extract;
+
+
+var rules = {
+	create : {
+		name : new Valichain().s$trim().v$matches(/^[a-z\. ]+$/i),
+		address : new Valichain().default(null).s$trim().v$blacklist("'\""),
+	},
+	show : {
+		id : new Valichain()._$toString().s$trim().v$isNumeric(),
+	},
+	list : {
+		//...
+	}
+};
+
+
+
 module.exports = {
 
 	/**
@@ -32,15 +52,18 @@ module.exports = {
 	*/
 	create: co.wrap(function*(req, res) {
 		try {
+			var params = VE(V(rules.create, req.allParams()));
+			if (!params) return res.badRequest();
+
 			sails.log.debug('at user create');
 			var user = yield User.create({
-					name: req.param('name'),
-					address: req.param('address', null)
+					name: params.name,
+					address: params.address
 				});
-			res.json(user);
+			return res.json(user);
 		}
 		catch (err) {
-			res.serverError(err);
+			return res.serverError(err);
 		}
 	}),
 
@@ -73,8 +96,12 @@ module.exports = {
 	show: co.wrap(function*(req, res) {
 		try {
 			sails.log.debug('at user show', req.path, req.allParams(), req.params);
+
+			var params = VE(V(rules.show, req.allParams()));
+			if (!params) return res.badRequest();
+
 			var user = yield User.find({
-				where : { id : req.param('id') }
+				where : { id : params.id }
 			});
 			if (!user) return res.notFound();
 			return res.json(user);
@@ -114,10 +141,10 @@ module.exports = {
 			sails.log.debug('at user list');
 			sails.log.debug(req.query, req.path, req.params);
 			var users = yield User.findAll({});
-			res.json(users);
+			return res.json(users);
 		}
 		catch (err) {
-			res.serverError(err);
+			return res.serverError(err);
 		}
 	}),
 
@@ -169,7 +196,7 @@ module.exports = {
 			var maria = yield User.create({ name : 'Maria', id : req.param('id') }, opt);
 			sails.log.debug('Saved:', JSON.stringify(maria, null, ' '));
 			
-			res.json([joao,maria]); // send a 200 OK response
+			return res.json([joao,maria]); // send a 200 OK response
 			// END method body
 
 			// Once you have sent a 1xx, 2xx or 3xx HTTP staus code,
@@ -184,7 +211,7 @@ module.exports = {
 		catch (err) {
 			sails.log.debug('Error caught:', err);
 			// set HTTP status to 400 to rollback the transaction (any 400+ will do it)
-			res.badRequest();
+			return res.badRequest();
 			// You may also...
 			//   use opt.transaction.roolback(),
 			//   allow the exception be thrown to the caller (no try...catch),
