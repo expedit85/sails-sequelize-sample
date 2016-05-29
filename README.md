@@ -51,7 +51,7 @@ The table below shows the endpoints which works for browser's address bar:
 | Test INSERT/SELECT of dates | [http://localhost:1337/user/test](http://localhost:1337/user/test) |
 | Test transaction usage      | [http://localhost:1337/user/transaction?id=90](http://localhost:1337/user/transaction?id=90) |
 
-For more details, see [apidoc.md](apidoc.md) and [inline docs](api/controllers/UserController.js).
+For more details, see [apidoc.md](apidoc.md) and [inline docs](api/controllers/UserController.js#L35).
 
 
 **NOTE:** for security reasons, disable actions, shortcut and rest options on the production environment. See [blueprint API](http://sailsjs.org/documentation/reference/blueprint-api).
