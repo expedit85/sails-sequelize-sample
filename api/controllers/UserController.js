@@ -14,7 +14,10 @@ var VE = Valichain.extract;
 
 var rules = {
 	create : {
-		name : new Valichain().s$trim().v$matches(/^[a-z\. ]+$/i),
+		name : new Valichain()
+		           .s$trim()
+		           .v$matches(/^[a-z\. ]+$/i)
+		           .msg("Name must have only letters, spaces and dots"),
 		address : new Valichain().default(null).s$trim().v$blacklist("'\""),
 	},
 	show : {
@@ -52,10 +55,21 @@ module.exports = {
 	*/
 	create: co.wrap(function*(req, res) {
 		try {
-			var params = VE(V(rules.create, req.allParams()));
-			if (!params) return res.badRequest();
-
 			sails.log.debug('at user create');
+
+			// Using sails-hook-valichain
+			var params = req.valichain(rules.create);
+			if (!params) {
+				console.log("Validation failed. Results:", req.valichain.result)
+				return res.badRequest();
+			}
+			// console.log("validation succeeded: ", params);
+
+			// Using valichain directly
+			// var params = VE(V(rules.create, req.allParams()));
+			// if (!params) return res.badRequest();
+
+			
 			var user = yield User.create({
 					name: params.name,
 					address: params.address

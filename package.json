@@ -26,7 +26,8 @@
     "sails": "~0.11.4",
     "sails-disk": "~0.10.0",
     "sails-hook-sequelize": "^1.0.1",
-    "valichain": "^1.0.0"
+    "sails-hook-valichain": "^1.0.0",
+    "valichain": "^1.0.3"
   },
   "scripts": {
     "debug": "node debug app.js",
